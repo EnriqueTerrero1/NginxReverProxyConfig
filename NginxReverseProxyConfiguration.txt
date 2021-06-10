@@ -1,0 +1,21 @@
+#First --Install nginx service and check the installation--
+sudo apt-get install nginx
+systemctl status nginx
+#if nginx service is inactive run:#
+systemctl enable nginx
+#second go to /etc/nginx/sites-available/ and open the file called default with your (editor of your preferences )
+sudo nano /etc/nginx/sites-available/default
+#third look up at the file and find this part and then add the following command to run our api at the 3000 port
+  server_name_; 
+location /api/ {
+
+	#first attempt to server request as file , then
+	#as directory, then fall back to display a 404.
+	#try_files $uri $uri/ =404
+	proxy_pass http://localhost:3000/; 
+
+}
+#fourth  reload the nginx service with the following command
+
+sudo nginx -s reload
+#now we can access to our api using the port 3000, go to your local host open your browser and write localhost:3000 and it should work.
